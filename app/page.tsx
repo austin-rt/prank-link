@@ -32,18 +32,23 @@ export default function Home() {
   }
 
   const field = "w-full rounded border border-gray-300 px-3 py-2 text-sm";
-  const label = "block text-sm font-medium mb-1";
+  const label = "block text-sm font-medium";
+  const hint = "block text-xs text-gray-500 mb-1";
+  const heading = "text-xs font-semibold uppercase tracking-wide text-gray-400";
 
   return (
     <main className="mx-auto max-w-xl px-6 py-12 font-sans">
       <h1 className="text-2xl font-bold mb-1">Prank Link Generator</h1>
       <p className="text-sm text-gray-500 mb-8">
-        The preview shows the disguise. The click goes to the destination.
+        Make a link whose chat preview looks innocent, but sends whoever clicks
+        it somewhere else.
       </p>
 
       <div className="space-y-4">
+        <p className={heading}>What they see in the chat preview</p>
         <div>
-          <label className={label}>Preview title</label>
+          <label className={label}>Headline on the preview card</label>
+          <span className={hint}>The big bold text recipients read first.</span>
           <input
             className={field}
             value={title}
@@ -51,7 +56,8 @@ export default function Home() {
           />
         </div>
         <div>
-          <label className={label}>Preview description</label>
+          <label className={label}>Subtext under the headline</label>
+          <span className={hint}>The smaller grey line below the title.</span>
           <input
             className={field}
             value={description}
@@ -59,15 +65,23 @@ export default function Home() {
           />
         </div>
         <div>
-          <label className={label}>Preview thumbnail URL</label>
+          <label className={label}>Thumbnail image on the preview card</label>
+          <span className={hint}>
+            Direct URL to the innocent-looking image shown in the preview.
+          </span>
           <input
             className={field}
             value={image}
             onChange={(e) => setImage(e.target.value)}
           />
         </div>
+
+        <p className={`${heading} pt-2`}>Where they actually go</p>
         <div>
-          <label className={label}>Redirect to (where the click goes)</label>
+          <label className={label}>Real destination after they click</label>
+          <span className={hint}>
+            The surprise. Recipients never see this until they tap the link.
+          </span>
           <input
             className={field}
             placeholder="https://i.imgur.com/your-image.jpeg"
