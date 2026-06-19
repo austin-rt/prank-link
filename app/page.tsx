@@ -67,7 +67,7 @@ export default function Home() {
           />
         </div>
         <div>
-          <label className={label}>Destination URL (where the click goes)</label>
+          <label className={label}>Redirect to (where the click goes)</label>
           <input
             className={field}
             placeholder="https://i.imgur.com/your-image.jpeg"
