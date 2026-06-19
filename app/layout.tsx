@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Detour — Custom link previews",
+  title: "Create a link",
   description: "Create a link with a custom preview that points wherever you want.",
 };
 
