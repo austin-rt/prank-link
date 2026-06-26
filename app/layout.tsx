@@ -12,9 +12,46 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const SITE_URL = "https://ends.to";
+const SITE_NAME = "ends.to";
+const DESCRIPTION =
+  "Create a short link with a fully custom preview — choose the title, description, and thumbnail that show when it's shared, then point it anywhere you want.";
+
 export const metadata: Metadata = {
-  title: "Create a link",
-  description: "Create a link with a custom preview that points wherever you want.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Custom Link Preview Generator",
+    template: "%s · ends.to",
+  },
+  description: DESCRIPTION,
+  applicationName: SITE_NAME,
+  keywords: [
+    "custom link preview",
+    "link preview generator",
+    "change link thumbnail",
+    "custom open graph image",
+    "link preview editor",
+    "url shortener with custom preview",
+    "edit link preview",
+  ],
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: "Custom Link Preview Generator",
+    description: DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Custom Link Preview Generator",
+    description: DESCRIPTION,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+  },
 };
 
 // Set data-mode before paint so there's no flash of the wrong theme.

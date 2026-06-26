@@ -11,11 +11,16 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { data } = await params;
   const prank = decodePrank(data);
-  if (!prank) return {};
+  // Keep generated links out of search indexes. Social preview crawlers
+  // (Discord, Twitter, Facebook, etc.) ignore robots meta and still read the
+  // OG tags below, so the disguise preview keeps working.
+  const robots = { index: false, follow: false } as const;
+  if (!prank) return { robots };
 
   return {
     title: prank.title,
     description: prank.description,
+    robots,
     openGraph: {
       title: prank.title,
       description: prank.description,

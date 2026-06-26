@@ -43,8 +43,24 @@ export default function Home() {
   const heading =
     "text-xs font-semibold uppercase tracking-wide text-gray-400 mb-3 dark:text-gray-500";
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Custom Link Preview Generator",
+    url: "https://ends.to",
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Any",
+    description:
+      "Create a short link with a custom preview — choose the title, description, and thumbnail shown when it's shared, then point it anywhere.",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  };
+
   return (
     <main className="min-h-screen bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-gray-100">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="mx-auto max-w-2xl px-6 py-12">
         <div className="flex items-start justify-between gap-4">
           <div>
