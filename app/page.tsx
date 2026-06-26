@@ -38,8 +38,7 @@ export default function Home() {
   const field =
     "w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 dark:border-gray-700 dark:bg-gray-950 dark:text-gray-100 dark:placeholder:text-gray-500 dark:focus:border-indigo-400 dark:focus:ring-indigo-900/40";
   const label = "block text-sm font-medium text-gray-800 dark:text-gray-200";
-  const hint =
-    "block text-xs text-gray-500 mt-0.5 mb-1.5 dark:text-gray-400";
+  const hint = "block text-xs text-gray-500 mt-0.5 mb-1.5 dark:text-gray-400";
   const heading =
     "text-xs font-semibold uppercase tracking-wide text-gray-400 mb-3 dark:text-gray-500";
 
@@ -62,20 +61,21 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="mx-auto max-w-2xl px-6 py-12">
-        <div className="flex items-start justify-between gap-4">
+        <header className="flex items-start justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold tracking-tight">Create a link</h1>
-            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-              Customize how your link looks when it&apos;s shared, then point it
-              wherever you want.
+            <h1 className="font-serif text-3xl font-semibold tracking-tight">
+              ends.to
+            </h1>
+            <p className="mt-1.5 text-sm text-gray-500 dark:text-gray-400">
+              Custom link previews, pointed anywhere you want.
             </p>
           </div>
           <DarkModeToggle />
-        </div>
+        </header>
 
         <div className="mt-8 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
           <section>
-            <p className={heading}>Link preview</p>
+            <p className={heading}>Preview</p>
             <div className="space-y-4">
               <div>
                 <label className={label}>Preview headline</label>
