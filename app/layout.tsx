@@ -18,8 +18,8 @@ export const metadata: Metadata = {
 };
 
 // Set data-mode before paint so there's no flash of the wrong theme.
-// Persisted choice wins; otherwise fall back to the OS preference.
-const noFlashScript = `(function(){try{var m=localStorage.getItem("mode");if(m!=="dark"&&m!=="light"){m=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-mode",m);}catch(e){}})();`;
+// Persisted choice wins; otherwise default to dark.
+const noFlashScript = `(function(){try{var m=localStorage.getItem("mode");if(m!=="dark"&&m!=="light"){m="dark";}document.documentElement.setAttribute("data-mode",m);}catch(e){}})();`;
 
 export default function RootLayout({
   children,
@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      data-mode="light"
+      data-mode="dark"
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
