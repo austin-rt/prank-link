@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { encodePrank } from "@/lib/prank";
-
-type Mode = "light" | "dark";
+import DarkModeToggle from "./components/DarkModeToggle";
 
 export default function Home() {
   const [title, setTitle] = useState("");
@@ -12,23 +11,7 @@ export default function Home() {
   const [destination, setDestination] = useState("");
   const [link, setLink] = useState("");
   const [copied, setCopied] = useState(false);
-  const [mode, setMode] = useState<Mode>("light");
   const linkRef = useRef<HTMLInputElement>(null);
-
-  // Sync state with whatever the no-flash script already set on <html>.
-  useEffect(() => {
-    const current = document.documentElement.getAttribute("data-mode");
-    setMode(current === "dark" ? "dark" : "light");
-  }, []);
-
-  function toggleMode() {
-    const next: Mode = mode === "dark" ? "light" : "dark";
-    document.documentElement.setAttribute("data-mode", next);
-    try {
-      localStorage.setItem("mode", next);
-    } catch {}
-    setMode(next);
-  }
 
   function generate() {
     if (!/^https?:\/\//i.test(destination)) {
@@ -71,13 +54,7 @@ export default function Home() {
               wherever you want.
             </p>
           </div>
-          <button
-            onClick={toggleMode}
-            aria-label="Toggle dark mode"
-            className="shrink-0 rounded-lg border border-gray-300 p-2 text-base leading-none transition hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800"
-          >
-            {mode === "dark" ? "☀️" : "🌙"}
-          </button>
+          <DarkModeToggle />
         </div>
 
         <div className="mt-8 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
