@@ -3,6 +3,15 @@
 import { useRef, useState } from "react";
 import { encodePrank } from "@/lib/prank";
 import DarkModeToggle from "./components/DarkModeToggle";
+import UrlInput from "./components/UrlInput";
+
+const PROTOCOL = /^https?:\/\//i;
+
+function normalizeUrl(value: string): string {
+  const trimmed = value.trim();
+  if (!trimmed) return "";
+  return PROTOCOL.test(trimmed) ? trimmed : `https://${trimmed}`;
+}
 
 export default function Home() {
   const [title, setTitle] = useState("");
@@ -11,15 +20,30 @@ export default function Home() {
   const [destination, setDestination] = useState("");
   const [link, setLink] = useState("");
   const [copied, setCopied] = useState(false);
+  const [error, setError] = useState("");
   const linkRef = useRef<HTMLInputElement>(null);
 
   function generate() {
-    if (!/^https?:\/\//i.test(destination)) {
+    const dest = normalizeUrl(destination);
+    if (!dest) {
+      setError("Enter a destination URL.");
       setLink("");
-      alert("Destination must be a full http(s):// URL");
       return;
     }
-    const code = encodePrank({ title, description, image, destination });
+    try {
+      new URL(dest);
+    } catch {
+      setError("That doesn't look like a valid URL.");
+      setLink("");
+      return;
+    }
+    setError("");
+    const code = encodePrank({
+      title,
+      description,
+      image: normalizeUrl(image),
+      destination: dest,
+    });
     setLink(`${window.location.origin}/r/${code}`);
     setCopied(false);
   }
@@ -106,11 +130,10 @@ export default function Home() {
                 <span className={hint}>
                   Direct image URL shown on the preview card.
                 </span>
-                <input
-                  className={field}
-                  placeholder="https://example.com/preview.png"
+                <UrlInput
+                  placeholder="example.com/preview.png"
                   value={image}
-                  onChange={(e) => setImage(e.target.value)}
+                  onChange={setImage}
                 />
               </div>
             </div>
@@ -125,12 +148,20 @@ export default function Home() {
               <span className={hint}>
                 Where the link actually opens when clicked.
               </span>
-              <input
-                className={field}
-                placeholder="https://example.com/your-page"
+              <UrlInput
+                placeholder="example.com/your-page"
                 value={destination}
-                onChange={(e) => setDestination(e.target.value)}
+                invalid={!!error}
+                onChange={(v) => {
+                  setDestination(v);
+                  if (error) setError("");
+                }}
               />
+              {error && (
+                <p className="mt-1.5 text-xs text-red-600 dark:text-red-400">
+                  {error}
+                </p>
+              )}
             </div>
           </section>
 

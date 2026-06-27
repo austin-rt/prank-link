@@ -11,9 +11,6 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { data } = await params;
   const prank = decodePrank(data);
-  // Keep generated links out of search indexes. Social preview crawlers
-  // (Discord, Twitter, Facebook, etc.) ignore robots meta and still read the
-  // OG tags below, so the disguise preview keeps working.
   const robots = { index: false, follow: false } as const;
   if (!prank) return { robots };
 
@@ -45,15 +42,10 @@ export default async function RedirectPage({
   if (!prank) notFound();
 
   const dest = prank.destination;
-  // Escape "<" so a destination URL can't break out of the inline <script>.
   const jsDest = JSON.stringify(dest).replace(/</g, "\\u003c");
 
   return (
     <>
-      {/*
-        meta-refresh + JS, NOT a server 301/307: a server redirect fires before
-        the crawler reads the OG tags above and would spoil the preview.
-      */}
       <meta httpEquiv="refresh" content={`0;url=${dest}`} />
       <script
         dangerouslySetInnerHTML={{ __html: `window.location.replace(${jsDest});` }}

@@ -54,8 +54,6 @@ export const metadata: Metadata = {
   },
 };
 
-// Set data-mode before paint so there's no flash of the wrong theme.
-// Persisted choice wins; otherwise default to dark.
 const noFlashScript = `(function(){try{var m=localStorage.getItem("mode");if(m!=="dark"&&m!=="light"){m="dark";}document.documentElement.setAttribute("data-mode",m);}catch(e){}})();`;
 
 export default function RootLayout({

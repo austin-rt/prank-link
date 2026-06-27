@@ -5,7 +5,6 @@ export type Prank = {
   destination: string;
 };
 
-// URL-safe base64 of the prank payload. Works in browser and Node.
 export function encodePrank(p: Prank): string {
   const json = JSON.stringify([p.title, p.description, p.image, p.destination]);
   const bytes = new TextEncoder().encode(json);
@@ -22,7 +21,6 @@ export function decodePrank(code: string): Prank | null {
     const [title, description, image, destination] = JSON.parse(
       new TextDecoder().decode(bytes),
     );
-    // Reject anything that isn't a real http(s) URL — blocks javascript: etc.
     if (!/^https?:\/\//i.test(destination)) return null;
     return {
       title: String(title ?? ""),

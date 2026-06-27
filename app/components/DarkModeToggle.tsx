@@ -8,7 +8,6 @@ type Mode = "light" | "dark";
 export default function DarkModeToggle() {
   const [mode, setMode] = useState<Mode>("light");
 
-  // Sync with whatever the no-flash script already set on <html>.
   useEffect(() => {
     const current = document.documentElement.getAttribute("data-mode");
     setMode(current === "dark" ? "dark" : "light");
