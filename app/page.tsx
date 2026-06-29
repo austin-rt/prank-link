@@ -131,6 +131,7 @@ export default function Home() {
                   Direct image URL shown on the preview card.
                 </span>
                 <UrlInput
+                  allowUpload
                   placeholder="example.com/preview.png"
                   value={image}
                   onChange={setImage}
@@ -149,6 +150,7 @@ export default function Home() {
                 Where the link actually opens when clicked.
               </span>
               <UrlInput
+                allowUpload
                 placeholder="example.com/your-page"
                 value={destination}
                 invalid={!!error}
